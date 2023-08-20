@@ -1,0 +1,50 @@
+
+body {
+    background: url("https://www.dropbox.com/scl/fi/n2es83b7pohu1ug06me5s/website-color.png?rlkey=l7kmgl06zln5b8x1twh2nn18f&raw=1");
+    background-size: 115%;
+    margin: auto;
+}
+
+.logo {
+    width: 15rem;
+    padding: 0px;
+}
+
+input[type=text],
+input[type=password] {
+    width: 100%;
+    padding: 15px;
+    margin: 5px 0 22px 0;
+    display: inline-block;
+    border: none;
+    background: #f1f1f1;
+}
+
+input {
+    text-indent: 40px;
+}
+
+.input {
+    width: 350px;
+    margin: 0;
+}
+
+.circle {
+    width: 50px;
+    height: 50px;
+    margin: 4px;
+    border: 2px solid #f1f1f1;
+    border-radius: 50%;
+}
+
+.form-icon {
+    position: absolute;
+    font-size: 18px;
+    color: #9e9cb9;
+    margin: 23px;
+}
+
+.social-icon{
+    font-size: 18px;
+    color: black;
+}
