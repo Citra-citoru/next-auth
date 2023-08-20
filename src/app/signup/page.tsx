@@ -25,10 +25,23 @@ export default function Signup() {
             <br className="mb-6" />
             <div className="flex flex-row justify-center">
               <div>
-                <button className="circle"><i className="fa-brands fa-facebook-f social-icon"></i></button>
+                <button className="circle tooltip">
+                  <span className="tooltiptext text-xs">Create account with facebook</span>
+                  <i className="fa-brands fa-facebook-f social-icon"></i>
+                </button>
               </div>
-              <div><button className="circle"><i className="fa-brands fa-google social-icon"></i></button></div>
-              <div><button className="circle"><i className="fa-brands fa-linkedin-in social-icon"></i></button></div>
+              <div>
+                <button className="circle tooltip">
+                  <span className="tooltiptext text-xs">Create account with google</span>
+                  <i className="fa-brands fa-google social-icon"></i>
+                </button>
+              </div>
+              <div>
+                <button className="circle tooltip">
+                <span className="tooltiptext text-xs">Create account with linkedin</span>
+                <i className="fa-brands fa-linkedin-in social-icon"></i>
+                </button>
+              </div>
             </div>
             <br className="mb-6" />
             <p className="text-center text-gray-600">or use your email account:</p>
