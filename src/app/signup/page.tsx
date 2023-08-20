@@ -1,11 +1,41 @@
 "use client";
-import Link from "next/link";
-import { useState, Fragment } from "react";
+import { useState, useCallback, useEffect } from "react";
+import { toast } from "react-hot-toast";
 import { useRouter } from "next/navigation";
-import { Axios } from "axios";
+import api from "@/config/base-url";
+
 import "./style.css";
 
 export default function Signup() {
+  const router = useRouter();
+  const [user, setUser] = useState({
+    name: "",
+    email: "",
+    password: ""
+  });
+  const [submitButton, setSubmitButton] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const onSubmit = async (e:any) => {
+    try {
+      e.preventDefault();
+      console.log("test");
+      const resp = await api.post("/api/users/signup", user);
+      console.log("sign up success!", resp);
+      router.push('/login');
+    } catch (error: any) {
+      console.log(error);
+      toast.error(error.message);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  useEffect(() => {
+    var conditions = user.name.length > 0 && user.email.length > 0 && user.password.length > 0;
+    if (conditions) {
+      setSubmitButton(false);
+    }
+  }, [user]);
 
   return (
     <>
@@ -38,8 +68,8 @@ export default function Signup() {
               </div>
               <div>
                 <button className="circle tooltip">
-                <span className="tooltiptext text-xs">Create account with linkedin</span>
-                <i className="fa-brands fa-linkedin-in social-icon"></i>
+                  <span className="tooltiptext text-xs">Create account with linkedin</span>
+                  <i className="fa-brands fa-linkedin-in social-icon"></i>
                 </button>
               </div>
             </div>
@@ -47,18 +77,42 @@ export default function Signup() {
             <p className="text-center text-gray-600">or use your email account:</p>
             <br className="mb-6" />
             <div className="flex flex-row justify-center">
-              <form>
+              <form onClick={onSubmit}>
                 <div className="input">
                   <i className="fa-solid fa-user form-icon" />
-                  <input id="name" type="text" placeholder="Name" name="name" required></input>
+                  <input 
+                    id="name" 
+                    type="text" 
+                    placeholder="Name" 
+                    name="name" 
+                    className="text-black" 
+                    value={user.name} 
+                    onChange={(e) => setUser({...user, name: e.target.value})}
+                    required/> 
                 </div>
                 <div className="input">
                   <i className="fa-solid fa-envelope form-icon"></i>
-                  <input id="email" type="text" placeholder="Email" name="email" required></input>
+                  <input 
+                    id="email" 
+                    type="text" 
+                    placeholder="Email"
+                     name="email" 
+                     className="text-black" 
+                     value={user.email} 
+                     onChange={(e) => setUser({...user, email: e.target.value})}
+                     required/>
                 </div>
                 <div className="input">
                   <i className="fa-solid fa-lock form-icon"></i>
-                  <input id="password" type="password" placeholder="Password" name="password" required></input>
+                  <input 
+                    id="password" 
+                    type="password" 
+                    placeholder="Password" 
+                    name="password" 
+                    className="text-black" 
+                    value={user.password} 
+                    onChange={(e) => setUser({...user, password: e.target.value})}
+                    required/>
                 </div>
                 <div className="flex flex-row justify-center">
                   <button type="submit" className="bg-green-500 border-2 rounded-full  text-center px-5 py-2 w-40 text-sm  text-white text-center">SIGN UP</button>

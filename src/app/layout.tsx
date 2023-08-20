@@ -16,7 +16,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <title>Lakeysha</title>
+        <title>Next Auth</title>
         <script src="https://kit.fontawesome.com/7a887afe2b.js" crossOrigin="anonymous"></script>
       </head>
       <body className={inter.className}>{children}</body>
