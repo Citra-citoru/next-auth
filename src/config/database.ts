@@ -1,12 +1,25 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
+
 export async function connect() {
-    try{
-        mongoose.connect(process.env.MONGO_URI!);
+    try {
+        const uri = "mongodb+srv://citrapuspitar:Langouecitra20@cluster0.4c6wcpt.mongodb.net/auth?retryWrites=true&w=majority";
+        mongoose.connect(uri);
         const connection = mongoose.connection;
-        connection.on('connected', ()=>{
-            console.log('mongodb connected successfully!.')
+
+        connection.on('connected', () => {
+            console.log('MongoDB connected successfully');
         })
-    } catch(error) {
-        console.log("something goes wrong")
+
+        connection.on('error', (err) => {
+            console.log('MongoDB connection error. Please make sure MongoDB is running. ' + err);
+            process.exit();
+        })
+
+    } catch (error) {
+        console.log('Something goes wrong!');
+        console.log(error);
+        
     }
+
+
 }

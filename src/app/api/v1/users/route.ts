@@ -3,25 +3,24 @@ import user from "@/model/user";
 const Joi = require('joi');
 const bcrypt = require('bcryptjs');
 import { NextRequest, NextResponse } from "next/server";
-import type { NextApiRequest, NextApiResponse } from 'next';
-
 
 connect()
 
-const createUser =  async(req: NextRequest, res: NextApiResponse) => {
+export async function POST(req: NextRequest) {
     try {
         const { name, email, password } = await req.json();
-        const userBody = {
+        const userBody = new user({
             name: name,
             email: email,
             password: bcrypt.hashSync(password, 8)
-        };
-        await user.create(userBody);
-        res.status(201).json(user);
+        });
+        const result = await userBody.save();
+        return NextResponse.json({
+            message: "User created successfully",
+            status: 200,
+            result
+        })
     } catch (error: any) {
-        return res.status(500).json(error);
+        return NextResponse.json({error: error.message}, {status: 500});
     }
-
 }
-
-export default createUser

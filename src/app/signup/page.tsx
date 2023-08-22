@@ -19,7 +19,7 @@ export default function Signup() {
     try {
       e.preventDefault();
       console.log("test");
-      const resp = await api.post("/api/users/signup", user);
+      const resp = await api.post("/api/v1/users", user);
       console.log("sign up success!", resp);
       router.push('/login');
     } catch (error: any) {
