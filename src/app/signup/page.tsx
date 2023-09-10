@@ -1,4 +1,5 @@
 "use client";
+import Link from 'next/link';
 import { useState, useEffect } from "react";
 import { faUser, faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons'
 import { faFacebookF, faGoogle, faLinkedinIn } from '@fortawesome/free-brands-svg-icons'
@@ -45,7 +46,9 @@ export default function Signup() {
           <p className="text-center text-white mb-6">login with personal info!</p>
           <br />
           <div className="flex flex-row justify-center">
-            <button className="border-2 rounded-full text-center px-5 py-2 w-40 text-sm border-white text-white">LOG IN</button>
+            <button className="border-2 rounded-full text-center px-5 py-2 w-40 text-sm border-white text-white">
+              <Link href="/login">LOG IN</Link>
+            </button>
           </div>
         </div>
         <div className="flex flex-row basis-1/4 flex flex-row p-6 justify-center bg-white">
