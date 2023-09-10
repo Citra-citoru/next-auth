@@ -1,5 +1,8 @@
 "use client";
-import { useState, useCallback, useEffect } from "react";
+import { useState, useEffect } from "react";
+import { faUser, faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons'
+import { faFacebookF, faGoogle, faLinkedinIn } from '@fortawesome/free-brands-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { toast } from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import api from "@/config/base-url";
@@ -53,19 +56,19 @@ export default function Signup() {
               <div>
                 <button className="circle tooltip">
                   <span className="tooltiptext text-xs">Create account with facebook</span>
-                  <i className="fa-brands fa-facebook-f social-icon"></i>
+                  <FontAwesomeIcon icon={faFacebookF} className="social-icon"/>
                 </button>
               </div>
               <div>
                 <button className="circle tooltip">
                   <span className="tooltiptext text-xs">Create account with google</span>
-                  <i className="fa-brands fa-google social-icon"></i>
+                  <FontAwesomeIcon icon={faGoogle} className="social-icon"/>
                 </button>
               </div>
               <div>
                 <button className="circle tooltip">
                   <span className="tooltiptext text-xs">Create account with linkedin</span>
-                  <i className="fa-brands fa-linkedin-in social-icon"></i>
+                  <FontAwesomeIcon icon={faLinkedinIn} className="social-icon"/>
                 </button>
               </div>
             </div>
@@ -75,7 +78,7 @@ export default function Signup() {
             <div className="flex flex-row justify-center">
               <form onClick={onSubmit}>
                 <div className="input">
-                  <i className="fa-solid fa-user form-icon" />
+                  <FontAwesomeIcon icon={faUser} className="form-icon"/>
                   <input 
                     id="name" 
                     type="text" 
@@ -86,7 +89,7 @@ export default function Signup() {
                     required/> 
                 </div>
                 <div className="input">
-                  <i className="fa-solid fa-envelope form-icon"></i>
+                  <FontAwesomeIcon icon={faEnvelope} className="form-icon"/>
                   <input 
                     id="email" 
                     type="text" 
@@ -97,7 +100,7 @@ export default function Signup() {
                      required/>
                 </div>
                 <div className="input">
-                  <i className="fa-solid fa-lock form-icon"></i>
+                  <FontAwesomeIcon icon={faLock} className="form-icon"/>
                   <input 
                     id="password" 
                     type="password" 
