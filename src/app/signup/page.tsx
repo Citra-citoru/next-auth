@@ -13,27 +13,23 @@ export default function Signup() {
     email: "",
     password: ""
   });
-  const [submitButton, setSubmitButton] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [submitButton, setSubmitButton] = useState(true);
   const onSubmit = async (e:any) => {
     try {
       e.preventDefault();
-      console.log("test");
-      const resp = await api.post("/api/v1/users", user);
-      console.log("sign up success!", resp);
+      await api.post("/api/v1/users", user);
       router.push('/login');
     } catch (error: any) {
-      console.log(error);
       toast.error(error.message);
     } finally {
-      setLoading(false);
+      setSubmitButton(false);
     }
   }
 
   useEffect(() => {
     var conditions = user.name.length > 0 && user.email.length > 0 && user.password.length > 0;
     if (conditions) {
-      setSubmitButton(false);
+      setSubmitButton(true);
     }
   }, [user]);
 
@@ -46,7 +42,7 @@ export default function Signup() {
           <p className="text-center text-white mb-6">login with personal info!</p>
           <br />
           <div className="flex flex-row justify-center">
-            <button type="submit" className="border-2 rounded-full text-center px-5 py-2 w-40 text-sm border-white text-white">LOG IN</button>
+            <button className="border-2 rounded-full text-center px-5 py-2 w-40 text-sm border-white text-white">LOG IN</button>
           </div>
         </div>
         <div className="flex flex-row basis-1/4 flex flex-row p-6 justify-center bg-white">
@@ -86,7 +82,6 @@ export default function Signup() {
                     placeholder="Name" 
                     name="name" 
                     className="text-black" 
-                    value={user.name} 
                     onChange={(e) => setUser({...user, name: e.target.value})}
                     required/> 
                 </div>
@@ -98,7 +93,6 @@ export default function Signup() {
                     placeholder="Email"
                      name="email" 
                      className="text-black" 
-                     value={user.email} 
                      onChange={(e) => setUser({...user, email: e.target.value})}
                      required/>
                 </div>
@@ -110,12 +104,11 @@ export default function Signup() {
                     placeholder="Password" 
                     name="password" 
                     className="text-black" 
-                    value={user.password} 
                     onChange={(e) => setUser({...user, password: e.target.value})}
                     required/>
                 </div>
                 <div className="flex flex-row justify-center">
-                  <button type="submit" className="bg-green-500 border-2 rounded-full  text-center px-5 py-2 w-40 text-sm  text-white text-center">SIGN UP</button>
+                  <button type="submit" disabled={submitButton} className="bg-green-500 border-2 rounded-full  text-center px-5 py-2 w-40 text-sm  text-white text-center">SIGN UP</button>
                   <br />
                 </div>
               </form>
