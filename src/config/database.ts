@@ -1,8 +1,9 @@
 import mongoose from 'mongoose';
+require('dotenv').config();
 
 export async function connect() {
     try {
-        const uri = "mongodb+srv://citrapuspitar:Langouecitra20@cluster0.4c6wcpt.mongodb.net/auth?retryWrites=true&w=majority";
+        const uri = process.env.MONGO_URI as string;
         mongoose.connect(uri);
         const connection = mongoose.connection;
 
