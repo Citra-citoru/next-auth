@@ -48,3 +48,8 @@ input {
     font-size: 18px;
     color: black;
 }
+
+.footer{
+    position: absolute;
+    bottom: 0;
+}

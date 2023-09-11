@@ -122,6 +122,9 @@ export default function Signup() {
           </div>
         </div>
       </div>
+      <div className="text-black footer">
+        <a target="_blank" href="https://dribbble.com/shots/5311359-Diprella-Login">Design by selecto</a>
+      </div>
     </>
   )
 }
