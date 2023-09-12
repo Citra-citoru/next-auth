@@ -1,8 +1,7 @@
-
-import axios from "axios";
+import axios from 'axios'
 
 const api = axios.create({
-    baseURL: process.env.DOMAIN
-});
+  baseURL: process.env.DOMAIN,
+})
 
-export default api;
+export default api
