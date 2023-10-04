@@ -1,6 +1,7 @@
 'use client'
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
+import { useForm, SubmitHandler } from "react-hook-form"
 import { faUser, faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons'
 import {
   faFacebookF,
@@ -13,38 +14,33 @@ import { useRouter } from 'next/navigation'
 import api from '@/config/base-url'
 import './style.css'
 
+type FormData = {
+  name: string
+  email: string
+  password: string
+}
+
 export default function Signup() {
   const router = useRouter()
-  const [user, setUser] = useState({
-    name: '',
-    email: '',
-    password: '',
-  })
-  const [submitButton, setSubmitButton] = useState(true)
-  const onSubmit = async (e: any) => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormData>()
+
+  const onSubmit: SubmitHandler<FormData> = (data) => {
     try {
-      e.preventDefault()
-      await api.post('/api/v1/users', user)
-      router.push('/login')
+      api.post('/api/v1/users', data).then(()=>router.push('/login'));
+      
     } catch (error: any) {
       toast.error(error.message)
-    } finally {
-      setSubmitButton(false)
     }
   }
-
-  useEffect(() => {
-    var conditions =
-      user.name.length > 0 && user.email.length > 0 && user.password.length > 0
-    if (conditions) {
-      setSubmitButton(true)
-    }
-  }, [user])
 
   return (
     <>
       <div className="flex flex-row justify-center align-items-center m-20">
-        <div className="flex flex-col justify-center bg-green-500 basis-3/4/ py-10 px-6">
+        <div className="flex flex-col justify-center bg-green-500 py-10 px-6">
           <h1 className="text-2xl text-center text-white mb-6">
             Welcome Back!
           </h1>
@@ -56,9 +52,7 @@ export default function Signup() {
           </p>
           <br />
           <div className="flex flex-row justify-center">
-            <button className="border-2 rounded-full text-center px-5 py-2 w-40 text-sm border-white text-white">
-              <Link href="/login">LOG IN</Link>
-            </button>
+            <Link type="button" href="/login" className="border-2 rounded-full text-center px-5 py-2 w-40 text-sm border-white text-white">SIGN IN</Link>
           </div>
         </div>
         <div className="flex flex-row basis-1/4 flex flex-row p-6 justify-center bg-white">
@@ -102,18 +96,16 @@ export default function Signup() {
             </p>
             <br className="mb-6" />
             <div className="flex flex-row justify-center">
-              <form onClick={onSubmit}>
+              <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="input">
                   <FontAwesomeIcon icon={faUser} className="form-icon" />
                   <input
                     id="name"
                     type="text"
                     placeholder="Name"
-                    name="name"
                     className="text-black"
-                    onChange={(e) => setUser({ ...user, name: e.target.value })}
-                    required
-                  />
+                    {...register("name", { required: true })} 
+                    />
                 </div>
                 <div className="input">
                   <FontAwesomeIcon icon={faEnvelope} className="form-icon" />
@@ -121,13 +113,9 @@ export default function Signup() {
                     id="email"
                     type="text"
                     placeholder="Email"
-                    name="email"
                     className="text-black"
-                    onChange={(e) =>
-                      setUser({ ...user, email: e.target.value })
-                    }
-                    required
-                  />
+                    {...register("email", { required: true })} 
+                    />
                 </div>
                 <div className="input">
                   <FontAwesomeIcon icon={faLock} className="form-icon" />
@@ -135,18 +123,13 @@ export default function Signup() {
                     id="password"
                     type="password"
                     placeholder="Password"
-                    name="password"
                     className="text-black"
-                    onChange={(e) =>
-                      setUser({ ...user, password: e.target.value })
-                    }
-                    required
-                  />
+                    {...register("password", { required: true })} 
+                    />
                 </div>
                 <div className="flex flex-row justify-center">
-                  <button
+                <button
                     type="submit"
-                    disabled={submitButton}
                     className="bg-green-500 border-2 rounded-full  text-center px-5 py-2 w-40 text-sm  text-white text-center"
                   >
                     SIGN UP
@@ -158,7 +141,7 @@ export default function Signup() {
           </div>
         </div>
       </div>
-      <div className="text-black footer">
+      <div className="text-black text-xs footer">
         <a
           target="_blank"
           href="https://dribbble.com/shots/5311359-Diprella-Login"
