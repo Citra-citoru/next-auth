@@ -1,0 +1,2 @@
+DOMAIN=your_domain
+MONGO_URI=mongo_uri
