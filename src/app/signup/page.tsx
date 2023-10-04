@@ -30,7 +30,7 @@ export default function Signup() {
 
   const onSubmit: SubmitHandler<FormData> = (data) => {
     try {
-      api.post('/api/v1/users', data).then(()=>router.push('/login'));
+      api.post('/api/v1/signup', data).then(()=>router.push('/login'));
       
     } catch (error: any) {
       toast.error(error.message)
